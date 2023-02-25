@@ -1,0 +1,34 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ '*' ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Update local toolchain
+        run: |
+          rustup update
+          rustup component add clippy
+          rustup toolchain install nightly --allow-downgrade -c rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo +nightly fmt -- --check        
+      - run: cargo clippy -- -D warnings && cargo clippy --tests -- -D warnings
+      - run: cargo test
+      - run: RUSTDOCFLAGS='--deny warnings' cargo doc --no-deps
+      - name: Check that generated code is up to date
+        run: |
+          scripts/gen-glyphs.sh
+          git diff
+          git diff-index --quiet HEAD --
+      - name: Check that README is up to date
+        run: |
+          cargo install cargo-rdme
+          scripts/gen-readme.sh
+          git diff
+          git diff-index --quiet HEAD --
