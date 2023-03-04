@@ -85,6 +85,11 @@ impl StaffSpaces {
     pub fn abs(&self) -> Self {
         Self(self.0.abs())
     }
+
+    /// Returns `StaffSpaces(0.0)`.
+    pub const fn zero() -> Self {
+        Self(0.0)
+    }
 }
 
 #[cfg(test)]
@@ -158,5 +163,10 @@ mod tests {
     #[case(StaffSpaces(-1.0), StaffSpaces(1.0))]
     fn abs(#[case] value: StaffSpaces, #[case] expected: StaffSpaces) {
         assert_eq!(value.abs(), expected);
+    }
+
+    #[test]
+    fn zero() {
+        assert_eq!(StaffSpaces::zero(), StaffSpaces(0.0));
     }
 }
