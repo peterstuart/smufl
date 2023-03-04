@@ -86,6 +86,20 @@ impl StaffSpaces {
         Self(self.0.abs())
     }
 
+    /// Returns the minimum of the two numbers.
+    ///
+    /// See [f64::max].
+    pub fn max(&self, other: Self) -> Self {
+        Self(self.0.max(other.0))
+    }
+
+    /// Returns the minimum of the two numbers.
+    ///
+    /// See [f64::min].
+    pub fn min(&self, other: Self) -> Self {
+        Self(self.0.min(other.0))
+    }
+
     /// Returns `StaffSpaces(0.0)`.
     pub const fn zero() -> Self {
         Self(0.0)
@@ -188,6 +202,22 @@ mod tests {
     #[case(StaffSpaces(-1.0), StaffSpaces(1.0))]
     fn abs(#[case] value: StaffSpaces, #[case] expected: StaffSpaces) {
         assert_eq!(value.abs(), expected);
+    }
+
+    #[rstest]
+    #[case(StaffSpaces(0.0), StaffSpaces(1.0), StaffSpaces(1.0))]
+    #[case(StaffSpaces(1.0), StaffSpaces(0.0), StaffSpaces(1.0))]
+    #[case(StaffSpaces(1.0), StaffSpaces(1.0), StaffSpaces(1.0))]
+    fn max(#[case] value: StaffSpaces, #[case] other: StaffSpaces, #[case] expected: StaffSpaces) {
+        assert_eq!(value.max(other), expected);
+    }
+
+    #[rstest]
+    #[case(StaffSpaces(0.0), StaffSpaces(1.0), StaffSpaces(0.0))]
+    #[case(StaffSpaces(1.0), StaffSpaces(0.0), StaffSpaces(0.0))]
+    #[case(StaffSpaces(1.0), StaffSpaces(1.0), StaffSpaces(1.0))]
+    fn min(#[case] value: StaffSpaces, #[case] other: StaffSpaces, #[case] expected: StaffSpaces) {
+        assert_eq!(value.min(other), expected);
     }
 
     #[test]
