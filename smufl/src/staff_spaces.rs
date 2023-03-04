@@ -69,8 +69,19 @@ impl Div<f64> for StaffSpaces {
     }
 }
 
+impl StaffSpaces {
+    /// Computes the absolute value of `self`.
+    ///
+    /// See [f64::abs].
+    pub fn abs(&self) -> Self {
+        Self(self.0.abs())
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use rstest::*;
+
     use super::*;
 
     #[test]
@@ -122,5 +133,13 @@ mod tests {
     #[test]
     fn div() {
         assert_eq!(StaffSpaces(6.0) / 3.0, StaffSpaces(2.0));
+    }
+
+    #[rstest]
+    #[case(StaffSpaces(0.0), StaffSpaces(0.0))]
+    #[case(StaffSpaces(1.0), StaffSpaces(1.0))]
+    #[case(StaffSpaces(-1.0), StaffSpaces(1.0))]
+    fn abs(#[case] value: StaffSpaces, #[case] expected: StaffSpaces) {
+        assert_eq!(value.abs(), expected);
     }
 }
