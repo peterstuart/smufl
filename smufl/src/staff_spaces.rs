@@ -98,55 +98,80 @@ mod tests {
 
     use super::*;
 
-    #[test]
-    fn from_f64() {
-        assert_eq!(StaffSpaces::from(1.0f64), StaffSpaces(1.0));
+    #[rstest]
+    #[case(0.0, StaffSpaces(0.0))]
+    #[case(1.5, StaffSpaces(1.5))]
+    #[case(100.3, StaffSpaces(100.3))]
+    fn from_f64(#[case] from: f64, #[case] expected: StaffSpaces) {
+        assert_eq!(StaffSpaces::from(from), expected);
     }
 
-    #[test]
-    fn from_i32() {
-        assert_eq!(StaffSpaces::from(1i32), StaffSpaces(1.0));
+    #[rstest]
+    #[case(0, StaffSpaces(0.0))]
+    #[case(1, StaffSpaces(1.0))]
+    #[case(100, StaffSpaces(100.0))]
+    fn from_i32(#[case] from: i32, #[case] expected: StaffSpaces) {
+        assert_eq!(StaffSpaces::from(from), expected);
     }
 
-    #[test]
-    fn into_f64() {
-        assert_eq!(f64::from(StaffSpaces(1.0)), 1.0);
+    #[rstest]
+    #[case(StaffSpaces(0.0), 0.0)]
+    #[case(StaffSpaces(1.5), 1.5)]
+    #[case(StaffSpaces(100.3), 100.3)]
+    fn into_f64(#[case] from: StaffSpaces, #[case] expected: f64) {
+        assert_eq!(f64::from(from), expected);
     }
 
-    #[test]
-    fn add() {
-        assert_eq!(StaffSpaces(1.0) + StaffSpaces(2.0), StaffSpaces(3.0));
+    #[rstest]
+    #[case(StaffSpaces(1.0), StaffSpaces(2.0), StaffSpaces(3.0))]
+    #[case(StaffSpaces(2.0), StaffSpaces(1.0), StaffSpaces(3.0))]
+    fn add(#[case] left: StaffSpaces, #[case] right: StaffSpaces, #[case] expected: StaffSpaces) {
+        assert_eq!(left + right, expected);
     }
 
-    #[test]
-    fn add_assign() {
-        let mut value = StaffSpaces(1.0);
-        value += StaffSpaces(2.0);
-
-        assert_eq!(value, StaffSpaces(3.0));
+    #[rstest]
+    #[case(StaffSpaces(1.0), StaffSpaces(2.0), StaffSpaces(3.0))]
+    #[case(StaffSpaces(2.0), StaffSpaces(1.0), StaffSpaces(3.0))]
+    fn add_assign(
+        #[case] mut left: StaffSpaces,
+        #[case] right: StaffSpaces,
+        #[case] expected: StaffSpaces,
+    ) {
+        left += right;
+        assert_eq!(left, expected);
     }
 
-    #[test]
-    fn sub() {
-        assert_eq!(StaffSpaces(3.0) - StaffSpaces(2.0), StaffSpaces(1.0));
+    #[rstest]
+    #[case(StaffSpaces(3.0), StaffSpaces(2.0), StaffSpaces(1.0))]
+    #[case(StaffSpaces(1.0), StaffSpaces(3.0), StaffSpaces(-2.0))]
+    fn sub(#[case] left: StaffSpaces, #[case] right: StaffSpaces, #[case] expected: StaffSpaces) {
+        assert_eq!(left - right, expected);
     }
 
-    #[test]
-    fn sub_assign() {
-        let mut value = StaffSpaces(3.0);
-        value -= StaffSpaces(2.0);
-
-        assert_eq!(value, StaffSpaces(1.0));
+    #[rstest]
+    #[case(StaffSpaces(3.0), StaffSpaces(2.0), StaffSpaces(1.0))]
+    #[case(StaffSpaces(1.0), StaffSpaces(3.0), StaffSpaces(-2.0))]
+    fn sub_assign(
+        #[case] mut left: StaffSpaces,
+        #[case] right: StaffSpaces,
+        #[case] expected: StaffSpaces,
+    ) {
+        left -= right;
+        assert_eq!(left, expected);
     }
 
-    #[test]
-    fn mul() {
-        assert_eq!(StaffSpaces(2.0) * 3.0, StaffSpaces(6.0));
+    #[rstest]
+    #[case(StaffSpaces(3.0), 2.0, StaffSpaces(6.0))]
+    #[case(StaffSpaces(2.0), 3.0, StaffSpaces(6.0))]
+    fn mul(#[case] left: StaffSpaces, #[case] right: f64, #[case] expected: StaffSpaces) {
+        assert_eq!(left * right, expected);
     }
 
-    #[test]
-    fn div() {
-        assert_eq!(StaffSpaces(6.0) / 3.0, StaffSpaces(2.0));
+    #[rstest]
+    #[case(StaffSpaces(6.0), 3.0, StaffSpaces(2.0))]
+    #[case(StaffSpaces(3.0), 6.0, StaffSpaces(0.5))]
+    fn div(#[case] left: StaffSpaces, #[case] right: f64, #[case] expected: StaffSpaces) {
+        assert_eq!(left / right, expected);
     }
 
     #[rstest]
