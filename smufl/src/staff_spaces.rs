@@ -82,6 +82,7 @@ impl StaffSpaces {
     /// Computes the absolute value of `self`.
     ///
     /// See [f64::abs].
+    #[must_use = "method returns a new number and does not mutate the original value"]
     pub fn abs(&self) -> Self {
         Self(self.0.abs())
     }
@@ -89,6 +90,7 @@ impl StaffSpaces {
     /// Returns the minimum of the two numbers.
     ///
     /// See [f64::max].
+    #[must_use = "this returns the result of the comparison, without modifying either input"]
     pub fn max(&self, other: Self) -> Self {
         Self(self.0.max(other.0))
     }
@@ -96,6 +98,7 @@ impl StaffSpaces {
     /// Returns the minimum of the two numbers.
     ///
     /// See [f64::min].
+    #[must_use = "this returns the result of the comparison, without modifying either input"]
     pub fn min(&self, other: Self) -> Self {
         Self(self.0.min(other.0))
     }
