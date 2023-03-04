@@ -3,14 +3,17 @@ use serde::Deserialize;
 use crate::StaffSpaces;
 
 /// X, Y coordinates in staff spaces.
+#[doc(alias = "coordinate")]
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq)]
 pub struct Coord(pub(crate) StaffSpaces, pub(crate) StaffSpaces);
 
 impl Coord {
+    /// Returns the horizontal component of the coordinate.
     pub fn x(&self) -> StaffSpaces {
         self.0
     }
 
+    /// Returns the vertical component of the coordinate.
     pub fn y(&self) -> StaffSpaces {
         self.1
     }

@@ -1,3 +1,6 @@
+#![warn(missing_docs)]
+#![warn(rustdoc::missing_crate_level_docs)]
+
 //! Parse [SMuFL][smufl] (Standard Music Font Layout) metadata.
 //!
 //! SMuFL-compliant fonts can provide a metadata file in JSON format in their

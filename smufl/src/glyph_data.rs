@@ -5,6 +5,7 @@ use serde::Deserialize;
 use crate::{glyph_or_unknown::GlyphOrUnknown, Glyph};
 
 #[derive(Debug, Deserialize)]
+/// A map of [Glyph] to some data (`T`).
 #[serde(transparent)]
 pub struct GlyphData<T> {
     data: HashMap<GlyphOrUnknown, T>,
