@@ -1,6 +1,6 @@
 [package]
 name = "smufl"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Peter Stuart <peter@peterstuart.org>" ]
 edition = "2021"
 license = "MIT"
