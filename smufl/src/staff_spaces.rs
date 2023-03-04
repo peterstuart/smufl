@@ -1,4 +1,7 @@
-use std::ops::{Add, AddAssign, Div, Mul, Sub, SubAssign};
+use std::{
+    iter::Sum,
+    ops::{Add, AddAssign, Div, Mul, Sub, SubAssign},
+};
 
 use serde::Deserialize;
 
@@ -69,6 +72,12 @@ impl Div<f64> for StaffSpaces {
     }
 }
 
+impl Sum for StaffSpaces {
+    fn sum<I: Iterator<Item = Self>>(iter: I) -> Self {
+        Self(iter.map(|value| value.0).sum())
+    }
+}
+
 impl StaffSpaces {
     /// Computes the absolute value of `self`.
     ///
@@ -133,6 +142,14 @@ mod tests {
     #[test]
     fn div() {
         assert_eq!(StaffSpaces(6.0) / 3.0, StaffSpaces(2.0));
+    }
+
+    #[rstest]
+    #[case(&[], StaffSpaces(0.0))]
+    #[case(&[StaffSpaces(1.0)], StaffSpaces(1.0))]
+    #[case(&[StaffSpaces(1.0), StaffSpaces(2.0), StaffSpaces(3.0)], StaffSpaces(6.0))]
+    fn sum(#[case] values: &[StaffSpaces], #[case] expected: StaffSpaces) {
+        assert_eq!(values.iter().copied().sum::<StaffSpaces>(), expected);
     }
 
     #[rstest]
