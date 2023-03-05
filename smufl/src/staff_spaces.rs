@@ -16,6 +16,12 @@ impl From<f64> for StaffSpaces {
     }
 }
 
+impl From<u32> for StaffSpaces {
+    fn from(n: u32) -> Self {
+        Self(f64::from(n))
+    }
+}
+
 impl From<i32> for StaffSpaces {
     fn from(n: i32) -> Self {
         Self(f64::from(n))
@@ -120,6 +126,14 @@ mod tests {
     #[case(1.5, StaffSpaces(1.5))]
     #[case(100.3, StaffSpaces(100.3))]
     fn from_f64(#[case] from: f64, #[case] expected: StaffSpaces) {
+        assert_eq!(StaffSpaces::from(from), expected);
+    }
+
+    #[rstest]
+    #[case(0, StaffSpaces(0.0))]
+    #[case(1, StaffSpaces(1.0))]
+    #[case(100, StaffSpaces(100.0))]
+    fn from_u32(#[case] from: u32, #[case] expected: StaffSpaces) {
         assert_eq!(StaffSpaces::from(from), expected);
     }
 
