@@ -60,8 +60,7 @@ pub struct EngravingDefaults {
     /// locked together, e.g. between the thin and thick barlines making a final
     /// barline, or between the thick and thin barlines making a start repeat
     /// barline.
-    // TODO: This is missing in Bravura
-    // thin_thick_barline_separation: Option<StaffSpaces>,
+    pub thin_thick_barline_separation: Option<StaffSpaces>,
     /// The default horizontal distance between the dots and the inner barline
     /// of a repeat barline, measured from the edge of the dots to the edge of
     /// the barline.
