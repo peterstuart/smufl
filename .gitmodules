@@ -13,3 +13,6 @@
 [submodule "submodules/sebastian"]
 	path = submodules/sebastian
 	url = https://github.com/fkretlow/sebastian.git
+[submodule "submodules/verovio"]
+	path = submodules/verovio
+	url = https://github.com/rism-digital/verovio.git

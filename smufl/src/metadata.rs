@@ -126,6 +126,17 @@ mod tests {
             sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.551))
         })
     )]
+    #[case::leipzig(
+        "../submodules/verovio/fonts/Leipzig/leipzig_metadata.json",
+        "Leipzig",
+        Some(StaffSpaces(0.08)),
+        None,
+        Some(Coord(StaffSpaces(1.256), StaffSpaces(0.156))),
+        Some(BoundingBox {
+            ne: Coord(StaffSpaces(1.256), StaffSpaces(0.532)),
+            sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.532))
+        })
+    )]
     fn from_reader(
         #[case] file: &str,
         #[case] expected_font_name: &str,
