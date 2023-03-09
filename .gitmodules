@@ -10,3 +10,6 @@
 [submodule "submodules/bravura"]
 	path = submodules/bravura
 	url = git@github.com:steinbergmedia/bravura.git
+[submodule "submodules/sebastian"]
+	path = submodules/sebastian
+	url = https://github.com/fkretlow/sebastian.git

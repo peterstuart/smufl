@@ -115,6 +115,17 @@ mod tests {
             sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.532))
         })
     )]
+    #[case::sebastian(
+        "../submodules/sebastian/fonts/Sebastian.json",
+        "Sebastian",
+        Some(StaffSpaces(0.125)),
+        None,
+        Some(Coord(StaffSpaces(1.28), StaffSpaces(0.172))),
+        Some(BoundingBox {
+            ne: Coord(StaffSpaces(1.279), StaffSpaces(0.551)),
+            sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.551))
+        })
+    )]
     fn from_reader(
         #[case] file: &str,
         #[case] expected_font_name: &str,
