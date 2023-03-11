@@ -10,23 +10,25 @@ use serde::Deserialize;
 #[serde(transparent)]
 pub struct StaffSpaces(pub f64);
 
-impl From<f64> for StaffSpaces {
-    fn from(value: f64) -> Self {
-        Self(value)
-    }
+macro_rules! impl_from {
+    ($T:ty) => {
+        impl From<$T> for StaffSpaces {
+            #[inline(always)]
+            fn from(value: $T) -> Self {
+                Self(f64::from(value))
+            }
+        }
+    };
 }
 
-impl From<u32> for StaffSpaces {
-    fn from(n: u32) -> Self {
-        Self(f64::from(n))
-    }
-}
-
-impl From<i32> for StaffSpaces {
-    fn from(n: i32) -> Self {
-        Self(f64::from(n))
-    }
-}
+impl_from!(u8);
+impl_from!(u16);
+impl_from!(u32);
+impl_from!(i8);
+impl_from!(i16);
+impl_from!(i32);
+impl_from!(f32);
+impl_from!(f64);
 
 impl From<StaffSpaces> for f64 {
     fn from(value: StaffSpaces) -> Self {
@@ -122,10 +124,18 @@ mod tests {
     use super::*;
 
     #[rstest]
-    #[case(0.0, StaffSpaces(0.0))]
-    #[case(1.5, StaffSpaces(1.5))]
-    #[case(100.3, StaffSpaces(100.3))]
-    fn from_f64(#[case] from: f64, #[case] expected: StaffSpaces) {
+    #[case(0, StaffSpaces(0.0))]
+    #[case(1, StaffSpaces(1.0))]
+    #[case(100, StaffSpaces(100.0))]
+    fn from_u8(#[case] from: u8, #[case] expected: StaffSpaces) {
+        assert_eq!(StaffSpaces::from(from), expected);
+    }
+
+    #[rstest]
+    #[case(0, StaffSpaces(0.0))]
+    #[case(1, StaffSpaces(1.0))]
+    #[case(100, StaffSpaces(100.0))]
+    fn from_u16(#[case] from: u16, #[case] expected: StaffSpaces) {
         assert_eq!(StaffSpaces::from(from), expected);
     }
 
@@ -141,7 +151,39 @@ mod tests {
     #[case(0, StaffSpaces(0.0))]
     #[case(1, StaffSpaces(1.0))]
     #[case(100, StaffSpaces(100.0))]
+    fn from_i8(#[case] from: i8, #[case] expected: StaffSpaces) {
+        assert_eq!(StaffSpaces::from(from), expected);
+    }
+
+    #[rstest]
+    #[case(0, StaffSpaces(0.0))]
+    #[case(1, StaffSpaces(1.0))]
+    #[case(100, StaffSpaces(100.0))]
+    fn from_i16(#[case] from: i16, #[case] expected: StaffSpaces) {
+        assert_eq!(StaffSpaces::from(from), expected);
+    }
+
+    #[rstest]
+    #[case(0, StaffSpaces(0.0))]
+    #[case(1, StaffSpaces(1.0))]
+    #[case(100, StaffSpaces(100.0))]
     fn from_i32(#[case] from: i32, #[case] expected: StaffSpaces) {
+        assert_eq!(StaffSpaces::from(from), expected);
+    }
+
+    #[rstest]
+    #[case(0.0, StaffSpaces(0.0))]
+    #[case(1.5, StaffSpaces(1.5))]
+    #[case(100.75, StaffSpaces(100.75))]
+    fn from_f32(#[case] from: f32, #[case] expected: StaffSpaces) {
+        assert_eq!(StaffSpaces::from(from), expected);
+    }
+
+    #[rstest]
+    #[case(0.0, StaffSpaces(0.0))]
+    #[case(1.5, StaffSpaces(1.5))]
+    #[case(100.3, StaffSpaces(100.3))]
+    fn from_f64(#[case] from: f64, #[case] expected: StaffSpaces) {
         assert_eq!(StaffSpaces::from(from), expected);
     }
 
