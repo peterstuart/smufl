@@ -4,11 +4,32 @@ use serde::Deserialize;
 
 use crate::{glyph_or_unknown::GlyphOrUnknown, Glyph};
 
-#[derive(Debug, Deserialize)]
+#[derive(Clone, Debug, Deserialize)]
 /// A map of [Glyph] to some data (`T`).
 #[serde(transparent)]
 pub struct GlyphData<T> {
     data: HashMap<GlyphOrUnknown, T>,
+}
+
+#[cfg(test)]
+impl<T, const NUM: usize> From<[(Glyph, T); NUM]> for GlyphData<T> {
+    fn from(value: [(Glyph, T); NUM]) -> Self {
+        Self {
+            data: value
+                .into_iter()
+                .map(|(glyph, data)| (glyph.into(), data))
+                .collect(),
+        }
+    }
+}
+
+#[cfg(test)]
+impl<T, const NUM: usize> From<[(GlyphOrUnknown, T); NUM]> for GlyphData<T> {
+    fn from(value: [(GlyphOrUnknown, T); NUM]) -> Self {
+        Self {
+            data: value.into_iter().collect(),
+        }
+    }
 }
 
 impl<T> Default for GlyphData<T> {
@@ -39,6 +60,15 @@ impl<T: Copy> GlyphData<T> {
 }
 
 impl<T> GlyphData<T> {
+    /// Insert data from `defaults` for any keys that are not present.
+    pub(crate) fn with_defaults(mut self, defaults: Self) -> Self {
+        for (glyph, value) in defaults.data {
+            self.data.entry(glyph).or_insert(value);
+        }
+
+        self
+    }
+
     /// Returns all the unknown glyphs (glyphs whose name was not recognized)
     /// which have data.
     pub(crate) fn unknown_glyphs(&self) -> impl Iterator<Item = &String> {
@@ -98,14 +128,43 @@ mod tests {
         #[case] glyph: Glyph,
         #[case] expected: u64,
     ) {
-        let glyph_data: GlyphData<u64> = GlyphData {
-            data: values
-                .into_iter()
-                .map(|(glyph, value)| (GlyphOrUnknown::Glyph(glyph), value))
-                .collect(),
-        };
+        let glyph_data: GlyphData<u64> = values.into();
 
         assert_eq!(glyph_data.get(glyph), expected);
+    }
+
+    #[rstest]
+    #[case::both_empty([], [], Glyph::NoteheadBlack, None)]
+    #[case::fallback_empty(
+        [(Glyph::NoteheadBlack, 1)],
+        [],
+        Glyph::NoteheadBlack,
+        Some(1)
+    )]
+    #[case::original_empty(
+        [],
+        [(Glyph::NoteheadBlack, 1)],
+        Glyph::NoteheadBlack,
+        Some(1)
+    )]
+    #[case::neither_empty(
+        [(Glyph::NoteheadBlack, 1)],
+        [(Glyph::NoteheadBlack, 2)],
+        Glyph::NoteheadBlack,
+        Some(1)
+    )]
+    fn with_defaults<const ORIGINAL_NUM: usize, const DEFAULTS_NUM: usize>(
+        #[case] original: [(Glyph, u64); ORIGINAL_NUM],
+        #[case] defaults: [(Glyph, u64); DEFAULTS_NUM],
+        #[case] glyph: Glyph,
+        #[case] expected: Option<u64>,
+    ) {
+        let original: GlyphData<u64> = original.into();
+        let defaults: GlyphData<u64> = defaults.into();
+
+        let original_with_defaults = original.with_defaults(defaults);
+
+        assert_eq!(original_with_defaults.try_get(glyph), expected);
     }
 
     #[rstest]
@@ -121,10 +180,9 @@ mod tests {
         #[case] values: [(GlyphOrUnknown, u64); NUM],
         #[case] expected: [&str; EXPECTED_NUM],
     ) {
-        let glyph_data: GlyphData<u64> = GlyphData {
-            data: values.into_iter().collect(),
-        };
+        let glyph_data: GlyphData<u64> = values.into();
         let unknown_glyphs: Vec<_> = glyph_data.unknown_glyphs().collect();
+
         assert_eq!(unknown_glyphs, expected);
     }
 }

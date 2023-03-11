@@ -5,7 +5,7 @@ use crate::Coord;
 /// Anchor data for glyphs.
 ///
 /// See the [SMuFL documentation](https://w3c.github.io/smufl/latest/specification/glyphswithanchors.html).
-#[derive(Clone, Copy, Debug, Deserialize)]
+#[derive(Clone, Copy, Debug, Default, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Anchors {
     /// The exact position at which the bottom right-hand (south-east) corner of
