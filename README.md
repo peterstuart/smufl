@@ -36,20 +36,26 @@ assert_eq!(
     StaffSpaces(0.13)
 );
 assert_eq!(
-    metadata.advance_widths.get(Glyph::NoteheadWhole),
+    metadata.advance_widths.get(Glyph::NoteheadWhole).unwrap(),
     StaffSpaces(1.688)
 );
 assert_eq!(
     metadata
         .anchors
         .get(Glyph::NoteheadBlack)
+        .unwrap()
         .stem_up_se
         .unwrap()
         .x(),
     StaffSpaces(1.18)
 );
 assert_eq!(
-    metadata.bounding_boxes.get(Glyph::NoteheadBlack).ne.x(),
+    metadata
+        .bounding_boxes
+        .get(Glyph::NoteheadBlack)
+        .unwrap()
+        .ne
+        .x(),
     StaffSpaces(1.18)
 );
 ```

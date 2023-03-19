@@ -42,20 +42,8 @@ impl<T> Default for GlyphData<T> {
 
 impl<T: Copy> GlyphData<T> {
     /// Returns a copy of the data for the given `glyph`, if present.
-    pub fn try_get(&self, glyph: Glyph) -> Option<T> {
+    pub fn get(&self, glyph: Glyph) -> Option<T> {
         self.data.get(&GlyphOrUnknown::Glyph(glyph)).copied()
-    }
-
-    /// Returns a copy of the data for the given `glyph`. Panics if it isn't
-    /// present.
-    pub fn get(&self, glyph: Glyph) -> T {
-        self.try_get(glyph).unwrap_or_else(|| {
-            panic!(
-                "{:?} does not have {} defined",
-                glyph,
-                std::any::type_name::<T>()
-            )
-        })
     }
 }
 
@@ -96,7 +84,7 @@ mod tests {
         Glyph::NoteheadBlack,
         Some(1)
     )]
-    fn try_get<const NUM: usize>(
+    fn get<const NUM: usize>(
         #[case] values: [(Glyph, u64); NUM],
         #[case] glyph: Glyph,
         #[case] expected: Option<u64>,
@@ -107,28 +95,6 @@ mod tests {
                 .map(|(glyph, value)| (GlyphOrUnknown::Glyph(glyph), value))
                 .collect(),
         };
-
-        assert_eq!(glyph_data.try_get(glyph), expected);
-    }
-
-    #[rstest]
-    #[should_panic]
-    #[case::empty(
-        [],
-        Glyph::NoteheadBlack,
-        1 // not really expected
-    )]
-    #[case::not_empty(
-        [(Glyph::NoteheadBlack, 1), (Glyph::NoteheadWhole, 2)],
-        Glyph::NoteheadBlack,
-        1
-    )]
-    fn get<const NUM: usize>(
-        #[case] values: [(Glyph, u64); NUM],
-        #[case] glyph: Glyph,
-        #[case] expected: u64,
-    ) {
-        let glyph_data: GlyphData<u64> = values.into();
 
         assert_eq!(glyph_data.get(glyph), expected);
     }
@@ -164,7 +130,7 @@ mod tests {
 
         let original_with_defaults = original.with_defaults(defaults);
 
-        assert_eq!(original_with_defaults.try_get(glyph), expected);
+        assert_eq!(original_with_defaults.get(glyph), expected);
     }
 
     #[rstest]

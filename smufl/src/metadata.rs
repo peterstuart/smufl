@@ -170,7 +170,7 @@ mod tests {
         );
 
         assert_eq!(
-            metadata.advance_widths.try_get(Glyph::NoteheadWhole),
+            metadata.advance_widths.get(Glyph::NoteheadWhole),
             expected_advance_width,
             "NoteheadWhole advance width"
         );
@@ -178,14 +178,14 @@ mod tests {
         assert_eq!(
             metadata
                 .anchors
-                .try_get(Glyph::NoteheadBlack)
+                .get(Glyph::NoteheadBlack)
                 .and_then(|anchor| anchor.stem_up_se),
             expected_anchor,
             "NoteheadBlack stem_up_se anchor"
         );
 
         assert_eq!(
-            metadata.bounding_boxes.try_get(Glyph::NoteheadBlack),
+            metadata.bounding_boxes.get(Glyph::NoteheadBlack),
             expected_bounding_box,
             "NoteheadBlack bounding box"
         );
