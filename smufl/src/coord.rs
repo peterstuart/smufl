@@ -5,6 +5,7 @@ use crate::StaffSpaces;
 /// X, Y coordinates in staff spaces.
 #[doc(alias = "coordinate")]
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq)]
+#[cfg_attr(test, derive(serde::Serialize))]
 pub struct Coord(pub(crate) StaffSpaces, pub(crate) StaffSpaces);
 
 impl Coord {

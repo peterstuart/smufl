@@ -7,6 +7,7 @@ use serde::Deserialize;
 
 /// The primary unit of measurement for SMuFL fonts.
 #[derive(Clone, Copy, Debug, Default, Deserialize, PartialEq, PartialOrd)]
+#[cfg_attr(test, derive(serde::Serialize))]
 #[serde(transparent)]
 pub struct StaffSpaces(pub f64);
 

@@ -6,6 +6,7 @@ use crate::Coord;
 ///
 /// See the [SMuFL documentation](https://w3c.github.io/smufl/latest/specification/glyphbboxes.html).
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq)]
+#[cfg_attr(test, derive(serde::Serialize))]
 pub struct BoundingBox {
     /// The north-east corner of the bounding box.
     #[serde(rename = "bBoxNE")]

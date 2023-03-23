@@ -19,7 +19,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo +nightly fmt -- --check        
       - run: cargo clippy --all-targets -- -D warnings
-      - run: cargo test
+      - run: CI=true cargo test
       - run: RUSTDOCFLAGS='--deny warnings' cargo doc --no-deps
       - name: Check that generated code is up to date
         run: |

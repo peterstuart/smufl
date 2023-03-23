@@ -10,6 +10,7 @@ use crate::{EngravingDefaults, GlyphAdvanceWidths, GlyphAnchors, GlyphBoundingBo
 ///
 /// See the [SMuFL documentation](https://w3c.github.io/smufl/latest/specification/font-specific-metadata.html).
 #[derive(Clone, Debug, Deserialize)]
+#[cfg_attr(test, derive(serde::Serialize))]
 #[serde(rename_all = "camelCase")]
 pub struct Metadata {
     /// The name of the font to which the metadata applies.
@@ -86,7 +87,7 @@ impl Metadata {
 
 #[cfg(test)]
 mod tests {
-    use std::{fs::File, io::BufReader};
+    use std::{fs::File, io::BufReader, path::Path};
 
     use anyhow::Result;
     use rstest::*;
@@ -94,101 +95,33 @@ mod tests {
     use super::*;
     use crate::{Anchors, BoundingBox, Coord, Glyph, StaffSpaces};
 
+    macro_rules! set_snapshot_suffix {
+        ($($expr:expr),*) => {
+            let mut settings = insta::Settings::clone_current();
+            settings.set_snapshot_suffix(format!($($expr,)*));
+            let _guard = settings.bind_to_scope();
+        }
+    }
+
     #[rstest]
-    #[case::bravura(
-        "../submodules/bravura/redist/bravura_metadata.json",
-        "Bravura",
-        Some(StaffSpaces(0.13)),
-        Some(StaffSpaces(1.688)),
-        Some(Coord(StaffSpaces(1.18), StaffSpaces(0.168))),
-        Some(BoundingBox {
-            ne: Coord(StaffSpaces(1.18), StaffSpaces(0.5)),
-            sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.5))
-        })
-    )]
-    #[case::petaluma(
-        "../submodules/petaluma/redist/petaluma_metadata.json",
-        "Petaluma",
-        Some(StaffSpaces(0.13)),
-        None,
-        Some(Coord(StaffSpaces(1.336), StaffSpaces(0.288))),
-        Some(BoundingBox {
-            ne: Coord(StaffSpaces(1.3361857773586716), StaffSpaces(0.656)),
-            sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.656))
-        })
-    )]
-    #[case::leland(
-        "../submodules/leland/leland_metadata.json",
-        "Leland",
-        Some(StaffSpaces(0.11)),
-        None,
-        Some(Coord(StaffSpaces(1.3), StaffSpaces(0.16))),
-        Some(BoundingBox {
-            ne: Coord(StaffSpaces(1.3), StaffSpaces(0.528)),
-            sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.532))
-        })
-    )]
-    #[case::sebastian(
-        "../submodules/sebastian/fonts/Sebastian.json",
-        "Sebastian",
-        Some(StaffSpaces(0.125)),
-        None,
-        Some(Coord(StaffSpaces(1.28), StaffSpaces(0.172))),
-        Some(BoundingBox {
-            ne: Coord(StaffSpaces(1.279), StaffSpaces(0.551)),
-            sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.551))
-        })
-    )]
-    #[case::leipzig(
-        "../submodules/verovio/fonts/Leipzig/leipzig_metadata.json",
-        "Leipzig",
-        Some(StaffSpaces(0.08)),
-        None,
-        Some(Coord(StaffSpaces(1.256), StaffSpaces(0.156))),
-        Some(BoundingBox {
-            ne: Coord(StaffSpaces(1.256), StaffSpaces(0.532)),
-            sw: Coord(StaffSpaces(0.0), StaffSpaces(-0.532))
-        })
-    )]
-    fn from_reader(
-        #[case] file: &str,
-        #[case] expected_font_name: &str,
-        #[case] expected_staff_line_thickness: Option<StaffSpaces>,
-        #[case] expected_advance_width: Option<StaffSpaces>,
-        #[case] expected_anchor: Option<Coord>,
-        #[case] expected_bounding_box: Option<BoundingBox>,
-    ) -> Result<()> {
-        let file = File::open(file)?;
+    #[case::bravura("../submodules/bravura/redist/bravura_metadata.json")]
+    #[case::petaluma("../submodules/petaluma/redist/petaluma_metadata.json")]
+    #[case::leland("../submodules/leland/leland_metadata.json")]
+    #[case::sebastian("../submodules/sebastian/fonts/Sebastian.json")]
+    #[case::leipzig("../submodules/verovio/fonts/Leipzig/leipzig_metadata.json")]
+    fn from_reader(#[case] file: &str) -> Result<()> {
+        let path = Path::new(file);
+        let file_name = path.file_name().unwrap().to_str().unwrap();
+
+        set_snapshot_suffix!("{file_name}");
+
+        let file = File::open(path)?;
         let reader = BufReader::new(file);
         let metadata = Metadata::from_reader(reader)?;
 
-        assert_eq!(metadata.font_name, expected_font_name);
-
-        assert_eq!(
-            metadata.engraving_defaults.staff_line_thickness, expected_staff_line_thickness,
-            "Staff line thickness"
-        );
-
-        assert_eq!(
-            metadata.advance_widths.get(Glyph::NoteheadWhole),
-            expected_advance_width,
-            "NoteheadWhole advance width"
-        );
-
-        assert_eq!(
-            metadata
-                .anchors
-                .get(Glyph::NoteheadBlack)
-                .and_then(|anchor| anchor.stem_up_se),
-            expected_anchor,
-            "NoteheadBlack stem_up_se anchor"
-        );
-
-        assert_eq!(
-            metadata.bounding_boxes.get(Glyph::NoteheadBlack),
-            expected_bounding_box,
-            "NoteheadBlack bounding box"
-        );
+        insta::with_settings!({sort_maps => true}, {
+            insta::assert_ron_snapshot!(metadata);
+        });
 
         Ok(())
     }

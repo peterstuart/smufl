@@ -17,4 +17,11 @@ tracing = "0.1.37"
 
 [dev-dependencies]
 anyhow = "1.0.70"
+insta = { version = "1.29.0", features = ["ron"] }
 rstest = { version = "0.17.0", default_features = false }
+
+[profile.dev.package.insta]
+opt-level = 3
+
+[profile.dev.package.similar]
+opt-level = 3

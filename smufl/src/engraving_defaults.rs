@@ -6,6 +6,7 @@ use crate::StaffSpaces;
 ///
 /// See the [SMuFL documentation](https://w3c.github.io/smufl/latest/specification/engravingdefaults.html).
 #[derive(Clone, Debug, Default, Deserialize, PartialEq)]
+#[cfg_attr(test, derive(serde::Serialize))]
 #[serde(rename_all = "camelCase")]
 pub struct EngravingDefaults {
     /// An array containing the text font family (or families, in descending

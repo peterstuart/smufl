@@ -61,7 +61,9 @@ fn add_glyph_enum(glyphs: &[(String, String, Glyph)], scope: &mut Scope) {
         .derive("Deserialize")
         .derive("Eq")
         .derive("Hash")
-        .derive("PartialEq");
+        .derive("PartialEq")
+
+        .r#macro("#[cfg_attr(test, derive(serde::Serialize))]");
 
     for (name, original_name, glyph) in glyphs {
         glyph_enum

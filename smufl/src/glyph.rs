@@ -4,6 +4,7 @@ use serde::Deserialize;
 ///
 /// `Glyph` is generated from [glyphnames.json](https://github.com/w3c/smufl/blob/gh-pages/metadata/glyphnames.json). See the [SMuFL documentation](https://w3c.github.io/smufl/latest/specification/glyphnames.html).
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq)]
+#[cfg_attr(test, derive(serde::Serialize))]
 pub enum Glyph {
     /// 11 large diesis down, 3° down \[46 EDO\]
     #[serde(rename = "accSagittal11LargeDiesisDown")]

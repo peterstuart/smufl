@@ -3,6 +3,7 @@ use serde::Deserialize;
 use crate::Glyph;
 
 #[derive(Clone, Debug, Deserialize, Eq, Hash, PartialEq)]
+#[cfg_attr(test, derive(serde::Serialize))]
 #[serde(untagged)]
 pub enum GlyphOrUnknown {
     Glyph(Glyph),
