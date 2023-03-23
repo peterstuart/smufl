@@ -125,6 +125,7 @@ fn add_alternate_codepoint_fn(glyphs: &[(String, String, Glyph)], glyph_impl: &m
 #[cfg(test)]
 mod tests {
     use rstest::*;
+    use similar_asserts::assert_eq;
 
     #[rstest]
     // number suffixes should be capitalized correctly

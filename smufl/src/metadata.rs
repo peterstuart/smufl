@@ -91,6 +91,7 @@ mod tests {
 
     use anyhow::Result;
     use rstest::*;
+    use similar_asserts::assert_eq;
 
     use super::*;
     use crate::{Anchors, BoundingBox, Coord, Glyph, StaffSpaces};

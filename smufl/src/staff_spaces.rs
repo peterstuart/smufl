@@ -121,6 +121,7 @@ impl StaffSpaces {
 #[cfg(test)]
 mod tests {
     use rstest::*;
+    use similar_asserts::assert_eq;
 
     use super::*;
 
