@@ -105,11 +105,11 @@ mod tests {
     }
 
     #[rstest]
-    #[case::bravura("../submodules/bravura/redist/bravura_metadata.json")]
-    #[case::petaluma("../submodules/petaluma/redist/petaluma_metadata.json")]
-    #[case::leland("../submodules/leland/leland_metadata.json")]
-    #[case::sebastian("../submodules/sebastian/fonts/Sebastian.json")]
-    #[case::leipzig("../submodules/verovio/fonts/Leipzig/leipzig_metadata.json")]
+    #[case::bravura("submodules/bravura/redist/bravura_metadata.json")]
+    #[case::petaluma("submodules/petaluma/redist/petaluma_metadata.json")]
+    #[case::leland("submodules/leland/leland_metadata.json")]
+    #[case::sebastian("submodules/sebastian/fonts/Sebastian.json")]
+    #[case::leipzig("submodules/verovio/fonts/Leipzig/leipzig_metadata.json")]
     fn from_reader(#[case] file: &str) -> Result<()> {
         let path = Path::new(file);
         let file_name = path.file_name().unwrap().to_str().unwrap();

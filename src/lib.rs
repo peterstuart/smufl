@@ -26,7 +26,7 @@
 //! use smufl::{Glyph, Metadata, StaffSpaces};
 //!
 //! # fn example() -> anyhow::Result<()> {
-//! let file = File::open("../submodules/bravura/redist/bravura_metadata.json")?;
+//! let file = File::open("submodules/bravura/redist/bravura_metadata.json")?;
 //! let reader = BufReader::new(file);
 //! let metadata = Metadata::from_reader(reader)?;
 //!

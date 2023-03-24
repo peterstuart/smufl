@@ -17,15 +17,10 @@ jobs:
           rustup component add clippy
           rustup toolchain install nightly --allow-downgrade -c rustfmt
       - uses: Swatinem/rust-cache@v2
-      - run: cargo +nightly fmt -- --check        
       - run: cargo clippy --all-targets -- -D warnings
       - run: CI=true cargo test
+      - run: cargo +nightly fmt -- --check
       - run: RUSTDOCFLAGS='--deny warnings' cargo doc --no-deps
-      - name: Check that generated code is up to date
-        run: |
-          scripts/gen-glyphs.sh
-          git diff
-          git diff-index --quiet HEAD --
       - name: Check that README is up to date
         run: |
           cargo install cargo-rdme

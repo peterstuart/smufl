@@ -1,10 +1,10 @@
 use serde::Deserialize;
 
-/// SMuFL glyphs.
-///
+// region:sourcegen
 /// `Glyph` is generated from [glyphnames.json](https://github.com/w3c/smufl/blob/gh-pages/metadata/glyphnames.json). See the [SMuFL documentation](https://w3c.github.io/smufl/latest/specification/glyphnames.html).
 #[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, PartialEq)]
 #[cfg_attr(test, derive(serde::Serialize))]
+#[rustfmt::skip]
 pub enum Glyph {
     /// 11 large diesis down, 3° down \[46 EDO\]
     #[serde(rename = "accSagittal11LargeDiesisDown")]
@@ -189,8 +189,7 @@ pub enum Glyph {
     /// 5:23 small diesis down, 2° down \[60 EDO\], 1/5-tone down
     #[serde(rename = "accSagittal5v23SmallDiesisDown")]
     AccSagittal5V23SmallDiesisDown,
-    /// 5:23 small diesis up, (5:23S, 5C plus 23C), 2° up \[60 EDO\], 1/5-tone
-    /// up
+    /// 5:23 small diesis up, (5:23S, 5C plus 23C), 2° up \[60 EDO\], 1/5-tone up
     #[serde(rename = "accSagittal5v23SmallDiesisUp")]
     AccSagittal5V23SmallDiesisUp,
     /// 5:49 medium diesis down
@@ -313,8 +312,7 @@ pub enum Glyph {
     /// Double flat 5:7k-up
     #[serde(rename = "accSagittalDoubleFlat5v7kUp")]
     AccSagittalDoubleFlat5V7KUp,
-    /// Double flat 7C-up, 5° down \[43 EDO\], 10° down \[72 EDO\], 5/6-tone
-    /// down
+    /// Double flat 7C-up, 5° down \[43 EDO\], 10° down \[72 EDO\], 5/6-tone down
     #[serde(rename = "accSagittalDoubleFlat7CUp")]
     AccSagittalDoubleFlat7CUp,
     /// Double flat 7:11C-up, 9° down \[60 EDO\], 9/10-tone down
@@ -482,12 +480,10 @@ pub enum Glyph {
     /// Flat 55C-up, 5° down \[96 EDO\], 5/16-tone down
     #[serde(rename = "accSagittalFlat55CUp")]
     AccSagittalFlat55CUp,
-    /// Flat 5C-down, 4°\[22 29\] 5°\[27 34 41\] 6°\[39 46 53\] down, 7/12-tone
-    /// down
+    /// Flat 5C-down, 4°\[22 29\] 5°\[27 34 41\] 6°\[39 46 53\] down, 7/12-tone down
     #[serde(rename = "accSagittalFlat5CDown")]
     AccSagittalFlat5CDown,
-    /// Flat 5C-up, 2°\[22 29\] 3°\[27 34 41\] 4°\[39 46 53\] 5°72 7°\[96\]
-    /// down, 5/12-tone down
+    /// Flat 5C-up, 2°\[22 29\] 3°\[27 34 41\] 4°\[39 46 53\] 5°72 7°\[96\] down, 5/12-tone down
     #[serde(rename = "accSagittalFlat5CUp")]
     AccSagittalFlat5CUp,
     /// Flat 5:11S-down
@@ -655,8 +651,7 @@ pub enum Glyph {
     /// Sharp 55C-up, 11° up \[96 EDO\], 11/16-tone up
     #[serde(rename = "accSagittalSharp55CUp")]
     AccSagittalSharp55CUp,
-    /// Sharp 5C-down, 2°\[22 29\] 3°\[27 34 41\] 4°\[39 46 53\] 5°\[72\]
-    /// 7°\[96\] up, 5/12-tone up
+    /// Sharp 5C-down, 2°\[22 29\] 3°\[27 34 41\] 4°\[39 46 53\] 5°\[72\] 7°\[96\] up, 5/12-tone up
     #[serde(rename = "accSagittalSharp5CDown")]
     AccSagittalSharp5CDown,
     /// Sharp 5C-up, 4°\[22 29\] 5°\[27 34 41\] 6°\[39 46 53\] up, 7/12-tone up
@@ -788,12 +783,10 @@ pub enum Glyph {
     /// Push
     #[serde(rename = "accdnPush")]
     AccdnPush,
-    /// Right hand, 3 ranks, 8' stop + upper tremolo 8' stop + 16' stop
-    /// (accordion)
+    /// Right hand, 3 ranks, 8' stop + upper tremolo 8' stop + 16' stop (accordion)
     #[serde(rename = "accdnRH3RanksAccordion")]
     AccdnRh3RanksAccordion,
-    /// Right hand, 3 ranks, lower tremolo 8' stop + 8' stop + upper tremolo 8'
-    /// stop (authentic musette)
+    /// Right hand, 3 ranks, lower tremolo 8' stop + 8' stop + upper tremolo 8' stop (authentic musette)
     #[serde(rename = "accdnRH3RanksAuthenticMusette")]
     AccdnRh3RanksAuthenticMusette,
     /// Right hand, 3 ranks, 8' stop + 16' stop (bandoneón)
@@ -805,30 +798,25 @@ pub enum Glyph {
     /// Right hand, 3 ranks, 8' stop (clarinet)
     #[serde(rename = "accdnRH3RanksClarinet")]
     AccdnRh3RanksClarinet,
-    /// Right hand, 3 ranks, lower tremolo 8' stop + 8' stop + upper tremolo 8'
-    /// stop + 16' stop
+    /// Right hand, 3 ranks, lower tremolo 8' stop + 8' stop + upper tremolo 8' stop + 16' stop
     #[serde(rename = "accdnRH3RanksDoubleTremoloLower8ve")]
     AccdnRh3RanksDoubleTremoloLower8Ve,
-    /// Right hand, 3 ranks, 4' stop + lower tremolo 8' stop + 8' stop + upper
-    /// tremolo 8' stop
+    /// Right hand, 3 ranks, 4' stop + lower tremolo 8' stop + 8' stop + upper tremolo 8' stop
     #[serde(rename = "accdnRH3RanksDoubleTremoloUpper8ve")]
     AccdnRh3RanksDoubleTremoloUpper8Ve,
-    /// Right hand, 3 ranks, 4' stop + lower tremolo 8' stop + 8' stop + upper
-    /// tremolo 8' stop + 16' stop
+    /// Right hand, 3 ranks, 4' stop + lower tremolo 8' stop + 8' stop + upper tremolo 8' stop + 16' stop
     #[serde(rename = "accdnRH3RanksFullFactory")]
     AccdnRh3RanksFullFactory,
     /// Right hand, 3 ranks, 4' stop + 8' stop + 16' stop (harmonium)
     #[serde(rename = "accdnRH3RanksHarmonium")]
     AccdnRh3RanksHarmonium,
-    /// Right hand, 3 ranks, 4' stop + 8' stop + upper tremolo 8' stop
-    /// (imitation musette)
+    /// Right hand, 3 ranks, 4' stop + 8' stop + upper tremolo 8' stop (imitation musette)
     #[serde(rename = "accdnRH3RanksImitationMusette")]
     AccdnRh3RanksImitationMusette,
     /// Right hand, 3 ranks, lower tremolo 8' stop
     #[serde(rename = "accdnRH3RanksLowerTremolo8")]
     AccdnRh3RanksLowerTremolo8,
-    /// Right hand, 3 ranks, 4' stop + lower tremolo 8' stop + upper tremolo 8'
-    /// stop + 16' stop (master)
+    /// Right hand, 3 ranks, 4' stop + lower tremolo 8' stop + upper tremolo 8' stop + 16' stop (master)
     #[serde(rename = "accdnRH3RanksMaster")]
     AccdnRh3RanksMaster,
     /// Right hand, 3 ranks, 4' stop + 8' stop (oboe)
@@ -840,12 +828,10 @@ pub enum Glyph {
     /// Right hand, 3 ranks, 4' stop (piccolo)
     #[serde(rename = "accdnRH3RanksPiccolo")]
     AccdnRh3RanksPiccolo,
-    /// Right hand, 3 ranks, lower tremolo 8' stop + upper tremolo 8' stop + 16'
-    /// stop
+    /// Right hand, 3 ranks, lower tremolo 8' stop + upper tremolo 8' stop + 16' stop
     #[serde(rename = "accdnRH3RanksTremoloLower8ve")]
     AccdnRh3RanksTremoloLower8Ve,
-    /// Right hand, 3 ranks, 4' stop + lower tremolo 8' stop + upper tremolo 8'
-    /// stop
+    /// Right hand, 3 ranks, 4' stop + lower tremolo 8' stop + upper tremolo 8' stop
     #[serde(rename = "accdnRH3RanksTremoloUpper8ve")]
     AccdnRh3RanksTremoloUpper8Ve,
     /// Right hand, 3 ranks, lower tremolo 8' stop + upper tremolo 8' stop
@@ -14693,5 +14679,210 @@ impl Glyph {
             Self::_4StringTabClef => None,
             Self::_6StringTabClef => None,
         }
+    }
+} // endregion:sourcegen
+
+#[cfg(test)]
+mod tests {
+    use std::{
+        collections::HashMap,
+        fmt::Display,
+        fs::File,
+        io::{BufReader, Read},
+    };
+
+    use anyhow::{anyhow, bail, Result};
+    use codegen::{Impl, Scope};
+    use convert_case::{Case, Casing};
+    use once_cell::sync::Lazy;
+    use regex::{Captures, Regex};
+    use serde::{Deserialize, Deserializer};
+
+    #[test]
+    fn sourcegen() -> Result<()> {
+        let start_marker = "// region:sourcegen\n";
+        let end_marker = " // endregion:sourcegen\n";
+
+        let original_text = std::fs::read_to_string(file!())?;
+        let (prefix, _, suffix) = split_twice(&original_text, start_marker, end_marker)
+            .ok_or_else(|| anyhow!("Could not find location of Glyph enum in file"))?;
+
+        let file = File::open("submodules/smufl/metadata/glyphnames.json")?;
+        let reader = BufReader::new(file);
+        let glyphs = GlyphDefinition::from_reader(reader)?;
+
+        let new_enum_definition = generate(glyphs);
+        let new_text = format!("{prefix}{start_marker}{new_enum_definition}{end_marker}{suffix}");
+
+        if new_text != original_text {
+            std::fs::write(file!(), new_text)?;
+            bail!("Source was not up-to-date")
+        }
+
+        Ok(())
+    }
+
+    fn split_twice<'a>(
+        text: &'a str,
+        start_marker: &str,
+        end_marker: &str,
+    ) -> Option<(&'a str, &'a str, &'a str)> {
+        let (prefix, rest) = text.split_once(start_marker)?;
+        let (mid, suffix) = rest.split_once(end_marker)?;
+
+        Some((prefix, mid, suffix))
+    }
+
+    #[derive(Debug, Deserialize)]
+    #[serde(rename_all = "camelCase")]
+    pub struct GlyphDefinition {
+        pub codepoint: Codepoint,
+        pub alternate_codepoint: Option<Codepoint>,
+        pub description: String,
+    }
+
+    impl GlyphDefinition {
+        pub fn from_reader(reader: impl Read) -> anyhow::Result<HashMap<String, Self>> {
+            Ok(serde_json::from_reader(reader)?)
+        }
+    }
+
+    #[derive(Debug)]
+    pub struct Codepoint(char);
+
+    impl Display for Codepoint {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            format!("{:?}", self.0).fmt(f)
+        }
+    }
+
+    impl<'de> Deserialize<'de> for Codepoint {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: Deserializer<'de>,
+        {
+            // Codepoints are serialized as "U+E06", etc.
+            let string: String = Deserialize::deserialize(deserializer)?;
+            let hex = &string[2..];
+            let value = u32::from_str_radix(hex, 16).unwrap();
+            let char = char::from_u32(value).unwrap();
+
+            Ok(Self(char))
+        }
+    }
+
+    const GLYPH_ENUM_NAME: &str = "Glyph";
+    const CODEPOINT_FN_NAME: &str = "codepoint";
+    const ALTERNATE_CODEPOINT_FN_NAME: &str = "alternate_codepoint";
+
+    pub fn generate(glyphs: HashMap<String, GlyphDefinition>) -> String {
+        let mut glyphs = glyphs
+            .into_iter()
+            .map(|(name, glyph)| (variant_name(&name), name, glyph))
+            .collect::<Vec<_>>();
+        glyphs.sort_by_key(|(name, _, _)| name.to_owned());
+
+        let mut scope = Scope::new();
+        add_glyph_enum(&glyphs, &mut scope);
+        add_glyph_impl(&glyphs, &mut scope);
+
+        scope.to_string()
+    }
+
+    fn variant_name(name: &str) -> String {
+        static REGEX: Lazy<Regex> = Lazy::new(|| Regex::new(r"(\d+)([Th|Nd])").unwrap());
+
+        let name = name.to_case(Case::Pascal);
+
+        // Fix incorrect capitalization for number suffixes
+        // (eg. 8Th -> 8th, 32Nd -> 32nd)
+        let name = REGEX.replace(&name, |captures: &Captures| {
+            format!("{}{}", &captures[1], &captures[2].to_lowercase())
+        });
+
+        let needs_underscore = name.chars().next().map_or(false, |c| !c.is_alphabetic());
+
+        if needs_underscore {
+            format!("_{name}")
+        } else {
+            name.to_string()
+        }
+    }
+
+    fn add_glyph_enum(glyphs: &[(String, String, GlyphDefinition)], scope: &mut Scope) {
+        let doc = "`Glyph` is generated from [glyphnames.json](https://github.com/w3c/smufl/blob/gh-pages/metadata/glyphnames.json). See the [SMuFL documentation](https://w3c.github.io/smufl/latest/specification/glyphnames.html).";
+
+        let glyph_enum = scope
+            .new_enum(GLYPH_ENUM_NAME)
+            .doc(doc)
+            .vis("pub")
+            .derive("Clone")
+            .derive("Copy")
+            .derive("Debug")
+            .derive("Deserialize")
+            .derive("Eq")
+            .derive("Hash")
+            .derive("PartialEq")
+            .r#macro("#[cfg_attr(test, derive(serde::Serialize))]")
+            .r#macro("#[rustfmt::skip]");
+
+        for (name, original_name, glyph) in glyphs {
+            glyph_enum
+                .new_variant(name)
+                .annotation(format!(
+                    "/// {}",
+                    // The descriptions include square brackets which the Rust documentation
+                    // generator treats as Markdown, so escape those.
+                    glyph.description.replace('[', r"\[").replace(']', r"\]")
+                ))
+                .annotation(format!(r#"#[serde(rename = "{original_name}")]"#));
+        }
+    }
+
+    fn add_glyph_impl(glyphs: &[(String, String, GlyphDefinition)], scope: &mut Scope) {
+        let glyph_impl = scope.new_impl(GLYPH_ENUM_NAME);
+
+        add_codepoint_fn(glyphs, glyph_impl);
+        add_alternate_codepoint_fn(glyphs, glyph_impl);
+    }
+
+    fn add_codepoint_fn(glyphs: &[(String, String, GlyphDefinition)], glyph_impl: &mut Impl) {
+        let codepoint_fn = glyph_impl
+            .new_fn(CODEPOINT_FN_NAME)
+            .vis("pub")
+            .arg_ref_self()
+            .ret("char")
+            .doc("SMuFL code point")
+            .line("match self {");
+
+        for (name, _, glyph) in glyphs {
+            codepoint_fn.line(format!("    Self::{name} => {},", glyph.codepoint));
+        }
+
+        codepoint_fn.line("}");
+    }
+
+    fn add_alternate_codepoint_fn(
+        glyphs: &[(String, String, GlyphDefinition)],
+        glyph_impl: &mut Impl,
+    ) {
+        let codepoint_fn = glyph_impl
+            .new_fn(ALTERNATE_CODEPOINT_FN_NAME)
+            .vis("pub")
+            .arg_ref_self()
+            .ret("Option<char>")
+            .doc("Unicode Musical Symbols range code point")
+            .line("match self {");
+
+        for (name, _, glyph) in glyphs {
+            let value = match &glyph.alternate_codepoint {
+                Some(codepoint) => format!("Some({codepoint})"),
+                None => "None".to_owned(),
+            };
+
+            codepoint_fn.line(format!("    Self::{name} => {value},"));
+        }
+
+        codepoint_fn.line("}");
     }
 }
