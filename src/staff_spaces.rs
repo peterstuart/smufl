@@ -65,18 +65,34 @@ impl SubAssign for StaffSpaces {
     }
 }
 
+impl Mul<Self> for StaffSpaces {
+    type Output = Self;
+
+    fn mul(self, rhs: Self) -> Self {
+        Self(self.0 * rhs.0)
+    }
+}
+
 impl Mul<f64> for StaffSpaces {
     type Output = Self;
 
-    fn mul(self, rhs: f64) -> Self::Output {
+    fn mul(self, rhs: f64) -> Self {
         Self(self.0 * rhs)
+    }
+}
+
+impl Div<Self> for StaffSpaces {
+    type Output = Self;
+
+    fn div(self, rhs: Self) -> Self {
+        Self(self.0 / rhs.0)
     }
 }
 
 impl Div<f64> for StaffSpaces {
     type Output = Self;
 
-    fn div(self, rhs: f64) -> Self::Output {
+    fn div(self, rhs: f64) -> Self {
         Self(self.0 / rhs)
     }
 }
@@ -236,16 +252,38 @@ mod tests {
     }
 
     #[rstest]
+    #[case(StaffSpaces(3.0), StaffSpaces(2.0), StaffSpaces(6.0))]
+    #[case(StaffSpaces(2.0), StaffSpaces(3.0), StaffSpaces(6.0))]
+    fn mul_self(
+        #[case] left: StaffSpaces,
+        #[case] right: StaffSpaces,
+        #[case] expected: StaffSpaces,
+    ) {
+        assert_eq!(left * right, expected);
+    }
+
+    #[rstest]
     #[case(StaffSpaces(3.0), 2.0, StaffSpaces(6.0))]
     #[case(StaffSpaces(2.0), 3.0, StaffSpaces(6.0))]
-    fn mul(#[case] left: StaffSpaces, #[case] right: f64, #[case] expected: StaffSpaces) {
+    fn mul_f64(#[case] left: StaffSpaces, #[case] right: f64, #[case] expected: StaffSpaces) {
         assert_eq!(left * right, expected);
+    }
+
+    #[rstest]
+    #[case(StaffSpaces(6.0), StaffSpaces(3.0), StaffSpaces(2.0))]
+    #[case(StaffSpaces(3.0), StaffSpaces(6.0), StaffSpaces(0.5))]
+    fn div_self(
+        #[case] left: StaffSpaces,
+        #[case] right: StaffSpaces,
+        #[case] expected: StaffSpaces,
+    ) {
+        assert_eq!(left / right, expected);
     }
 
     #[rstest]
     #[case(StaffSpaces(6.0), 3.0, StaffSpaces(2.0))]
     #[case(StaffSpaces(3.0), 6.0, StaffSpaces(0.5))]
-    fn div(#[case] left: StaffSpaces, #[case] right: f64, #[case] expected: StaffSpaces) {
+    fn div_f64(#[case] left: StaffSpaces, #[case] right: f64, #[case] expected: StaffSpaces) {
         assert_eq!(left / right, expected);
     }
 
