@@ -8,6 +8,7 @@ keywords = ["music", "font"]
 description = "Parse SMuFL (Standard Music Font Layout) metadata."
 homepage = "https://github.com/peterstuart/smufl/"
 repository = "https://github.com/peterstuart/smufl/"
+exclude = [".github", "scripts", "submodules", "*.snap"]
 
 [dependencies]
 itertools = "0.10.5"
