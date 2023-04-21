@@ -22,7 +22,7 @@ codegen = "0.2.0"
 convert_case = "0.6.0"
 insta = { version = "1.29.0", features = ["ron"] }
 once_cell = "1.17.1"
-regex = "1.7.3"
+regex = "1.8.1"
 rstest = { version = "0.17.0", default_features = false }
 similar-asserts = "1.4.2"
 
