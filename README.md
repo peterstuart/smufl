@@ -19,7 +19,7 @@ See the [SMuFL documentation][smufl-metadata] for more details.
 This crate supports [version 1.40][smufl-version-history] of the SMuFL
 specification.
 
-The font metadata can be read into the `Metadata` struct:
+The font metadata can be read into the [`Metadata`] struct:
 
 ```rust
 use std::{fs::File, io::BufReader};

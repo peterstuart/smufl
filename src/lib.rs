@@ -18,7 +18,7 @@
 //! This crate supports [version 1.40][smufl-version-history] of the SMuFL
 //! specification.
 //!
-//! The font metadata can be read into the [`Metadata`](crate::Metadata) struct:
+//! The font metadata can be read into the [`Metadata`] struct:
 //!
 //! ```
 //! use std::{fs::File, io::BufReader};
