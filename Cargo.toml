@@ -20,7 +20,7 @@ tracing = "0.1.37"
 anyhow = "1.0.80"
 codegen = "0.2.0"
 convert_case = "0.6.0"
-insta = { version = "1.32.0", features = ["ron"] }
+insta = { version = "1.35.1", features = ["ron"] }
 once_cell = "1.18.0"
 regex = "1.10.3"
 rstest = { version = "0.18.2", default_features = false }
