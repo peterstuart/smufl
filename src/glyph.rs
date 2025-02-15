@@ -14800,7 +14800,7 @@ mod tests {
             format!("{}{}", &captures[1], &captures[2].to_lowercase())
         });
 
-        let needs_underscore = name.chars().next().map_or(false, |c| !c.is_alphabetic());
+        let needs_underscore = name.chars().next().is_some_and(|c| !c.is_alphabetic());
 
         if needs_underscore {
             format!("_{name}")
